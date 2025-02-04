@@ -32,8 +32,6 @@ body {
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
-  transition: all 0.3s ease-in-out;
-  -webkit-font-smoothing: antialiased;
 }
 
 body * {

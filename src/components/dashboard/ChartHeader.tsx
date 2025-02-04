@@ -5,9 +5,16 @@ interface IChartHeader {
   subTitle?: string;
   handleClick: () => void;
   icon?: any;
+  showSubHeader?: boolean;
 }
 
-function ChartHeader({ title, subTitle, handleClick, icon }: IChartHeader) {
+function ChartHeader({
+  title,
+  subTitle,
+  handleClick,
+  icon,
+  showSubHeader,
+}: IChartHeader) {
   return (
     <div className="mb-2">
       <div className="flex justify-between items-center">
@@ -28,13 +35,15 @@ function ChartHeader({ title, subTitle, handleClick, icon }: IChartHeader) {
           />
         )}
       </div>
-      <div>
-        {subTitle && (
-          <div className="text-[14px] font-semibold custom-font-black-2">
-            {subTitle}
-          </div>
-        )}
-      </div>
+      {showSubHeader && (
+        <div>
+          {subTitle && (
+            <div className="text-[14px] font-semibold custom-font-black-2">
+              {subTitle}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -22,28 +22,36 @@ const salesBySourceData = [
       <FaFacebook className="text-blue-600" />
       <span className="text-xs ml-2">Facebook</span>
     </span>,
-    35, 5, "₦22,035.00"
+    35,
+    5,
+    "₦22,035.00",
   ],
   [
     <span className="flex items-center">
       <AiFillInstagram className="text-pink-500" />
       <span className="text-xs ml-2">Instagram</span>
     </span>,
-    35, 5, "₦22,035.00"
+    35,
+    5,
+    "₦22,035.00",
   ],
   [
     <span className="flex items-center">
       <AiFillInstagram className="text-blue-600" />
       <span className="text-xs ml-2">Twitter</span>
     </span>,
-    35, 5, "₦22,035.00"
+    35,
+    5,
+    "₦22,035.00",
   ],
   [
     <span className="flex items-center">
       <AiFillGoogleCircle className="text-pink-500" />
       <span className="text-xs ml-2">Google</span>
     </span>,
-    35, 5, "₦22,035.00"
+    35,
+    5,
+    "₦22,035.00",
   ],
 ];
 
@@ -52,7 +60,11 @@ const topSellingProdHeader = ["Product", "SKU", "Qty"];
 const topSellingProdData = [
   [
     <span className="flex items-center">
-      <GiKiwiFruit className="text-blue-600" />
+      <img
+        src="images/prod-1.png"
+        alt="product_image"
+        className="h-[23px] w-[23px]"
+      />
       <span className="text-xs ml-2">Fresh Lemon Fruit</span>
     </span>,
     41152845,
@@ -60,7 +72,11 @@ const topSellingProdData = [
   ],
   [
     <span className="flex items-center">
-      <GiKiwiFruit className="text-pink-500" />
+      <img
+        src="images/prod-2.png"
+        alt="product_image"
+        className="h-[23px] w-[23px]"
+      />
       <span className="text-xs ml-2">Barista Drink Laite Lit</span>
     </span>,
     41152845,
@@ -68,16 +84,55 @@ const topSellingProdData = [
   ],
   [
     <span className="flex items-center">
-      <GiKiwiFruit className="text-blue-600" />
+      <img
+        src="images/prod-1.png"
+        alt="product_image"
+        className="h-[23px] w-[23px]"
+      />
       <span className="text-xs ml-2">Essential Waitrose D</span>
     </span>,
     916691,
     203,
   ],
-  [<span className="flex items-center">
-    <GiKiwiFruit className="text-pink-500" />
-    <span className="text-xs ml-2">Freshfarm Spaghetti</span>
-  </span>, 75452711, 404],
+  [
+    <span className="flex items-center">
+      <img
+        src="images/prod-2.png"
+        alt="product_image"
+        className="h-[23px] w-[23px]"
+      />
+      <span className="text-xs ml-2">Freshfarm Spaghetti</span>
+    </span>,
+    75452711,
+    404,
+  ],
+];
+
+const convertionRateData = [
+  [
+    <div className="">
+      <p className="text-xs mb-1">Added to cart</p>
+      <p className="text-xs custom-font-grey">0 sessions</p>
+    </div>,
+    `0.00%`,
+    '-',
+  ],
+  [
+    <div className="">
+      <p className="text-xs mb-1">Reached checkout</p>
+      <p className="text-xs custom-font-grey">0 sessions</p>
+    </div>,
+    `0.00%`,
+    '-',
+  ],
+  [
+    <div className="">
+      <p className="text-xs mb-1">Sessions converted</p>
+      <p className="text-xs custom-font-grey">0 sessions</p>
+    </div>,
+    `0.00%`,
+    '-',
+  ],
 ];
 
 const AnalyticsDashboard: React.FC = () => {
@@ -94,7 +149,7 @@ const AnalyticsDashboard: React.FC = () => {
       {/* Search and Filter */}
       <DashboardFilter />
 
-      {/* Chart Row-1 - starts */}
+      {/* Chart Rows - starts */}
       <div className="grid grid-cols-3 gap-6">
         {/* Total Sales Chart */}
         <div>
@@ -105,6 +160,7 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
 
@@ -117,6 +173,7 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
 
@@ -129,13 +186,10 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
-      </div>
-      {/* Chart Row-1 - ends */}
 
-      {/* Chart Row-2 - starts */}
-      <div className="grid grid-cols-3 gap-6 mt-7">
         {/* Average Order Volume */}
         <div>
           <CustomChart
@@ -145,6 +199,7 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
 
@@ -157,6 +212,7 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
 
@@ -168,13 +224,10 @@ const AnalyticsDashboard: React.FC = () => {
             handleClick={() => console.log("Sales By Social Source")}
             columns={salesBySourceHeader}
             data={salesBySourceData}
+            showSubHeader={true}
           />
         </div>
-      </div>
-      {/* Chart Row-2 - ends */}
 
-      {/* Chart Row-3 - starts */}
-      <div className="grid grid-cols-3 gap-6 mt-7">
         {/* Sales By Traffic Source */}
         <div>
           <GridTable
@@ -183,6 +236,7 @@ const AnalyticsDashboard: React.FC = () => {
             handleClick={() => console.log("Sales By Traffic Source")}
             columns={salesBySourceHeader}
             data={salesBySourceData}
+            showSubHeader={true}
           />
         </div>
 
@@ -195,6 +249,7 @@ const AnalyticsDashboard: React.FC = () => {
             data={storeSessionChartData}
             dateTo="Aug 19, 2024"
             dateFrom="Aug 12, 2024"
+            showSubHeader={true}
           />
         </div>
 
@@ -206,10 +261,47 @@ const AnalyticsDashboard: React.FC = () => {
             handleClick={() => console.log("Top Selling Products")}
             columns={topSellingProdHeader}
             data={topSellingProdData}
+            showSubHeader={false}
+          />
+        </div>
+
+        {/* Customer Lifetime Value */}
+        <div>
+          <GridTable
+            title="Customer Lifetime Value"
+            subTitle="N22,035.00-"
+            handleClick={() => console.log("Customer Lifetime Value")}
+            columns={topSellingProdHeader}
+            data={topSellingProdData}
+            showSubHeader={false}
+          />
+        </div>
+
+        {/* Returning Customer Rate */}
+        <div>
+          <CustomChart
+            title="Returning Customer Rate"
+            subTitle="%0 -"
+            handleClick={() => console.log("Returning Customer Rate")}
+            data={storeSessionChartData}
+            dateTo="Aug 19, 2024"
+            dateFrom="Aug 12, 2024"
+            showSubHeader={true}
+          />
+        </div>
+
+        {/* Conversion Rate */}
+        <div>
+          <GridTable
+            title="Conversion Rate"
+            subTitle="0%"
+            handleClick={() => console.log("Conversion Rate")}
+            data={convertionRateData}
+            showSubHeader={true}
           />
         </div>
       </div>
-      {/* Chart Row-3 - ends */}
+      {/* Chart Rows - ends */}
     </div>
   );
 };

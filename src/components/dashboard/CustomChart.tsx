@@ -17,7 +17,8 @@ interface ICustomChart {
   icon?: any;
   data: any[];
   dateTo: string;
-  dateFrom: string
+  dateFrom: string;
+  showSubHeader?: boolean;
 }
 
 function CustomChart({
@@ -27,7 +28,8 @@ function CustomChart({
   icon,
   data,
   dateTo,
-  dateFrom
+  dateFrom,
+  showSubHeader
 }: ICustomChart) {
   return (
     <div className="p-4 bg-white rounded-xl shadow-md">
@@ -37,6 +39,7 @@ function CustomChart({
         subTitle={subTitle}
         handleClick={handleClick}
         icon={icon}
+        showSubHeader={showSubHeader}
       />
 
       {/* Chart   */}
