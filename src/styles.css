@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --primary-background: rgba(0, 0, 0, 0.2);
+  --font-black: rgba(37, 45, 60, 1);
+  --font-black-2: rgba(52, 64, 84, 1);
+  --font-grey: rgba(119, 127, 140, 1);
+  --border-1: rgba(205, 208, 213, 1);
+  --border-2: rgba(205, 208, 213, 0.4);
+  --dashboard-sideBar-bg-1: rgba(245, 232, 233, 1);
+  --dashboard-sideBar-bg-active: rgba(224, 183, 187, 1);
+  --dashboard-sideBar-bg-hover: rgba(224, 183, 187, 0.5);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--primary-background);
+  font-family: "Poppins", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  line-height: 1.6875em;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  -webkit-font-smoothing: antialiased;
+}
+
+body * {
+  scroll-behavior: smooth;
+}
+
+.input {
+  background-color: rgba(249, 249, 250, 1);
+}
+
+.custom-font-black {
+  color: var(--font-black);
+}
+
+.custom-font-black-2 {
+  color: var(--font-black-2);
+}
+
+.custom-font-grey {
+  color: var(--font-grey);
+}
+
+.custom-border-1 {
+  border: 1px solid var(--border-1);
+}
+
+.custom-border-1-bottom {
+  border-bottom: 1px solid var(--border-1);
+}
+
+.custom-border-2 {
+  border: 1px solid var(--border-2);
+}
+
+.custom-border-2-bottom {
+  border-bottom: 1px solid var(--border-2);
+}
+
+.custom-dark-grey {
+  color: rgba(37, 45, 60, 1);
+}
+
+.custom-input-bg-grey {
+  background-color: rgba(28, 28, 28, 1);
+}
+
+input.custom-input-bg-grey, 
+input.custom-input-bg-grey::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+input.custom-input-bg-grey-2, 
+input.custom-input-bg-grey-2::placeholder {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.button-hover {
+  cursor: pointer;
+}
+
+.dashboard-sidebar-bg-1 {
+  background-color: var(--dashboard-sideBar-bg-1);
+}
+
+.dashboard-sidebar-bg-2 {
+  background-color: var(--dashboard-sideBar-bg-active);
+}
+
+.dashboard-sidebar-menu-item:hover {
+  background-color: var(--dashboard-sideBar-bg-hover);
+  /* background-color: green; */
+}
+
+.primary-bg {
+  background-color: var(--primary-background);
+}
