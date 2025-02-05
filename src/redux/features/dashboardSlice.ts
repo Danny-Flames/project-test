@@ -86,7 +86,7 @@ let { apiWithToken } = setupInterceptors();
 // Thunks
 export const fetchDashboardData = createAsyncThunk(
   "dashboard/fetchData",
-  async (params: { dateRange: string; comparison: string }, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const method = "GET";
       const url = `/users`;

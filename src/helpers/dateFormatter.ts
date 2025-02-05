@@ -31,16 +31,6 @@ type DateRange = {
       return isSameDay(date, yesterday);
     };
   
-    // Helper function to check if dates are in the last week
-    const isLastWeek = (start: Date, end: Date): boolean => {
-      const today = new Date();
-      const lastWeekStart = new Date(today);
-      lastWeekStart.setDate(today.getDate() - 7);
-      const lastWeekEnd = new Date(today);
-      lastWeekEnd.setDate(today.getDate() - 1);
-      return start >= lastWeekStart && end <= lastWeekEnd;
-    };
-  
     // Helper function to format date with ordinal suffix
     const formatDateWithOrdinal = (date: Date): string => {
       const day = date.getDate();
