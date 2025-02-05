@@ -6,24 +6,9 @@ import CustomTable from "../table/CustomTable";
 import DashboardReportFilter from "./DashboardReportFilter";
 import { fetchUsersData } from "../../redux/features/dashboardSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/store/hook";
+import SkeletonLoaderTable from "../../loader/SkeletonLoaderTable";
 
 const tableHeader = ["Full Name", "Email", "Phone Num", "Username", "City"];
-
-const tableData = [
-  {
-    name: "Store sessions",
-    category: "Acquisition",
-    lastViewed: "11 Aug 2024",
-  },
-  { name: "Sessions by over time", category: "Acquisition", lastViewed: "" },
-  { name: "Store conversion over time", category: "Behavior", lastViewed: "" },
-  { name: "Cart analysis", category: "Behavior", lastViewed: "" },
-  {
-    name: "Search conversions over time",
-    category: "Behavior",
-    lastViewed: "",
-  },
-];
 
 const DashboardReport: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -92,7 +77,11 @@ const DashboardReport: React.FC = () => {
           setSearchQuery={setSearchQuery}
         />
         <div className="custom-scrollbar">
-          <CustomTable tableHeader={tableHeader} tableData={filteredUsers} />
+          {isLoading ? (
+            <SkeletonLoaderTable />
+          ) : (
+            <CustomTable tableHeader={tableHeader} tableData={filteredUsers} />
+          )}
         </div>
         {/* Table section - ends */}
       </div>
