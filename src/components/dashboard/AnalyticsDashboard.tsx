@@ -75,10 +75,7 @@ const AnalyticsDashboard: React.FC = () => {
   // Fetch dashboard data immediately component mounts
   useEffect(() => {
     dispatch(
-      fetchDashboardData({
-        dateRange: currentDateRange,
-        comparison: comparisonDateRange,
-      })
+      fetchDashboardData()
     );
   }, [dispatch, currentDateRange, comparisonDateRange]);
 
