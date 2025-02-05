@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { IAuth, ILoginPayload } from "../../constants/interfaces";
+import { IAuth } from "../../constants/interfaces";
 import { getDecryptedAuthToken, getDecryptedUsers, saveEncryptedAuthToken, saveEncryptedUsers } from "../../helpers/localStorage";
 
 // Initial state for auth

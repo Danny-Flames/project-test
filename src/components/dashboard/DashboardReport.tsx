@@ -2,7 +2,6 @@ import React from "react";
 import DashboardWrapper from "./DashboardWrapper";
 import DashboardSectionHeader from "./DashboardSectionHeader";
 import DashboardSubheader from "./DashboardSubheader";
-import { CiSquarePlus } from "react-icons/ci";
 import CustomTable from "../table/CustomTable";
 import DashboardReportFilter from "./DashboardReportFilter";
 
