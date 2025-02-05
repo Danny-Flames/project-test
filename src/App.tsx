@@ -23,6 +23,7 @@ const App: React.FC = () => (
       <Routes>
         {/* Public Routes */}
         <Route element={<PublicRoute />}>
+          <Route path="/" element={<SignInForm />} />
           <Route path="/auth/register" element={<SignInForm />} />
           <Route path="/auth/login" element={<LoginForm />} />
         </Route>
