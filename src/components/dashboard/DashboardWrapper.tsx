@@ -50,7 +50,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ children }) => {
         </div>
 
         {/* Main content */}
-        <main className="flex-1 overflow-auto bg-gray-50 p-6">
+        <main className="flex-1 overflow-auto bg-gray-50 p-6 custom-scrollbar">
           {children}
         </main>
       </div>

@@ -122,6 +122,26 @@ input.navbar-search-input {
   width: 15rem;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px; /* Makes the scrollbar very tiny */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: whitesmoke; /* Scrollbar color */
+  border-radius: 10px; /* Curved edges */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Hides scrollbar track */
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: whitesmoke transparent; /* Scrollbar color */
+}
+
+
+/* MEDIA QUERIES - MEDIA QUERIES - MEDIA QUERIES  */
 @media (max-width: 1140px) {
   .custom-grid-table-box {
     overflow-x: auto;

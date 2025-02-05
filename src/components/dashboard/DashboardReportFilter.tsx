@@ -1,6 +1,16 @@
 import { BiSearch } from "react-icons/bi";
 
-function DashboardReportFilter() {
+interface IDashboardReportFilter {
+  dataCount: number | string;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+}
+
+function DashboardReportFilter({
+  searchQuery,
+  setSearchQuery,
+  dataCount,
+}: IDashboardReportFilter) {
   return (
     <div className="px-1 dashboard-report-filter custom-border-2 pt-3 pb-1">
       <div className="flex flex-col md:flex-row items-center mb-2 md:mb-0">
@@ -13,6 +23,8 @@ function DashboardReportFilter() {
             type="text"
             placeholder="Search reports"
             className="dashboard-report-filter-input pl-10 pr-4 py-[2px] rounded-3xl border focus:outline-none focus:ring-2 focus:ring-gray-100 custom-input-bg-grey-2 dashboard-filter-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="mt-2 md:mt-0 md:ml-3 flex items-center">
@@ -34,7 +46,10 @@ function DashboardReportFilter() {
           </button>
         </div>
       </div>
-      <span className="text-[12.5px] custom-font-grey">120 Results</span>
+      <span className="text-[12.5px] custom-font-grey">
+        {" "}
+        <span className="mr-1">{dataCount || "0"}</span>Results
+      </span>
     </div>
   );
 }

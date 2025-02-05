@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardWrapper from "./DashboardWrapper";
 import DashboardSectionHeader from "./DashboardSectionHeader";
 import DashboardSubheader from "./DashboardSubheader";
 import CustomTable from "../table/CustomTable";
 import DashboardReportFilter from "./DashboardReportFilter";
+import { fetchUsersData } from "../../redux/features/dashboardSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store/hook";
 
-const tableHeader = ["Name", "Category", "Last Viewed"];
+const tableHeader = ["Full Name", "Email", "Phone Num", "Username", "City"];
 
 const tableData = [
   {
@@ -24,10 +26,41 @@ const tableData = [
 ];
 
 const DashboardReport: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, users } = useAppSelector((state) => state.dashboard);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  console.log("DashboardReport-users", users);
+
+  // Function to handle filter
   const handleDateChange = (ranges: { startDate: Date; endDate: Date }) => {
     console.log("Selected Date Range:", ranges.startDate, ranges.endDate);
     // Handle state update or API call with new dates
   };
+
+  // Fetch users data immediately component mounts
+  useEffect(() => {
+    dispatch(fetchUsersData());
+  }, [dispatch]);
+
+  // Restructure the 'users' data to fit what we want
+  const modifiedUsers = users?.map(
+    ({ name, email, phone, username, address }) => ({
+      name,
+      email,
+      phone,
+      username,
+      city: address.city,
+    })
+  );
+
+  // Filter users based on searchQuery
+  const filteredUsers = modifiedUsers?.filter((user) =>
+    Object.values(user).some((value) =>
+      value.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   return (
     <DashboardWrapper>
       <div className="px-1 py-5">
@@ -53,8 +86,14 @@ const DashboardReport: React.FC = () => {
         {/* Analytics subheader - ends*/}
 
         {/* Table section - starts  */}
-        <DashboardReportFilter />
-        <CustomTable tableHeader={tableHeader} tableData={tableData} />
+        <DashboardReportFilter
+          dataCount={modifiedUsers?.length || "0"}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <div className="custom-scrollbar">
+          <CustomTable tableHeader={tableHeader} tableData={filteredUsers} />
+        </div>
         {/* Table section - ends */}
       </div>
     </DashboardWrapper>

@@ -4,10 +4,7 @@ import DashboardFilter from "./DashboardFilter";
 import DashboardSectionHeader from "./DashboardSectionHeader";
 import { useAnalyticsData } from "../hooks/useAnalyticsData";
 import { useAppDispatch, useAppSelector } from "../../redux/store/hook";
-import {
-  fetchAnalyticsData,
-  fetchDashboardData,
-} from "../../redux/features/dashboardSlice";
+import { fetchAnalyticsData } from "../../redux/features/dashboardSlice";
 import SkeletonLoader from "../../loader/SkeletonLoader";
 import { chartsConfig } from "../../config/chartsConfig";
 import { createChartComponent } from "../../config/chartComponents";
@@ -72,13 +69,6 @@ const AnalyticsDashboard: React.FC = () => {
     );
   };
 
-  // Fetch dashboard data immediately component mounts
-  useEffect(() => {
-    dispatch(
-      fetchDashboardData()
-    );
-  }, [dispatch, currentDateRange, comparisonDateRange]);
-
   // Fetch analytics data immediately component mounts
   useEffect(() => {
     dispatch(fetchAnalyticsData({ startDate: "", endDate: "" }));
@@ -135,7 +125,7 @@ const AnalyticsDashboard: React.FC = () => {
   );
 
   return (
-    <div className="px-1 py-5">
+    <div className="px-1 py-5 h-screen flex flex-col">
       {/* Analytics Header */}
       <DashboardSectionHeader title="Analytics" />
 
@@ -156,15 +146,23 @@ const AnalyticsDashboard: React.FC = () => {
       {isLoading ? (
         <SkeletonLoader />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(searchQuery ? filteredCharts : chartsConfig).map((chart, index) => {
-            const chartData = getChartData(chart.title);
-            return (
-              <div key={index}>
-                {createChartComponent(chart, chartData.data, chartData.columns)}
-              </div>
-            );
-          })}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(searchQuery ? filteredCharts : chartsConfig).map(
+              (chart, index) => {
+                const chartData = getChartData(chart.title);
+                return (
+                  <div key={index}>
+                    {createChartComponent(
+                      chart,
+                      chartData.data,
+                      chartData.columns
+                    )}
+                  </div>
+                );
+              }
+            )}
+          </div>
         </div>
       )}
       {/* Chart Rows - ends */}

@@ -93,6 +93,7 @@ export interface DashboardState extends DashboardMetrics {
   autoRefresh: boolean;
   selectedCategory: string;
   searchQuery: string;
+  users: any[]
 }
 
 export interface StoreSessionData {

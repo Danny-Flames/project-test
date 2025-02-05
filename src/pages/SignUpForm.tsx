@@ -7,7 +7,7 @@ import { registerUser } from "../redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store/hook";
 import { notifyError, notifySuccess } from "../alert/toastService";
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,8 +27,11 @@ const SignInForm = () => {
     }));
   };
 
-  const isBtnActive = formData.name.trim() !== "";
-  formData.email.trim() !== "" && formData.phone.trim() !== "";
+  const isBtnActive =
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.phone.trim() !== "" &&
+    formData.password.trim() !== "";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,4 +179,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

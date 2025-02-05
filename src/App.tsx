@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import ComingSoon from "./pages/ComingSoon";
-import SignInForm from "./pages/SignInForm";
 import LoginForm from "./pages/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
 import Orders from "./components/pages/Orders";
@@ -16,6 +15,7 @@ import ProtectedRoute from "./guard/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import PublicRoute from "./guard/PublicRoute";
 import DashboardReport from "./components/dashboard/DashboardReport";
+import SignUpForm from "./pages/SignUpForm";
 
 const App: React.FC = () => (
   <Provider store={store}>
@@ -23,8 +23,8 @@ const App: React.FC = () => (
       <Routes>
         {/* Public Routes */}
         <Route element={<PublicRoute />}>
-          <Route path="/" element={<SignInForm />} />
-          <Route path="/auth/register" element={<SignInForm />} />
+          <Route path="/" element={<SignUpForm />} />
+          <Route path="/auth/register" element={<SignUpForm />} />
           <Route path="/auth/login" element={<LoginForm />} />
         </Route>
 

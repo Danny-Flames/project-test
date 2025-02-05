@@ -16,6 +16,7 @@ const initialState: DashboardState = {
   autoRefresh: true,
   selectedCategory: "All",
   searchQuery: "",
+  users: [],
 
   // Metrics
   totalSales: {
@@ -84,8 +85,8 @@ const initialState: DashboardState = {
 let { apiWithToken } = setupInterceptors();
 
 // Thunks
-export const fetchDashboardData = createAsyncThunk(
-  "dashboard/fetchData",
+export const fetchUsersData = createAsyncThunk(
+  "dashboard/fetchUsersData",
   async (_, thunkAPI) => {
     try {
       const method = "GET";
@@ -146,18 +147,15 @@ const dashboardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDashboardData.pending, (state) => {
+      .addCase(fetchUsersData.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchDashboardData.fulfilled, (state, { payload }) => {
+      .addCase(fetchUsersData.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.lastUpdated = new Date().toISOString();
-        // Update all metrics with the received data
-        console.log("payload", payload);
-        // Object.assign(state, payload);
+        state.users = payload
       })
-      .addCase(fetchDashboardData.rejected, (state, action) => {
+      .addCase(fetchUsersData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       })
