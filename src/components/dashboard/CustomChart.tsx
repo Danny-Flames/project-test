@@ -1,4 +1,3 @@
-import React from "react";
 import {
   LineChart,
   Line,
@@ -43,7 +42,7 @@ function CustomChart({
       />
 
       {/* Chart   */}
-      <ResponsiveContainer width="100%" height={145}>
+      <ResponsiveContainer width="100%" height={144}>
         <LineChart
           data={data}
           margin={{ left: -40, right: 0, top: 0, bottom: 0 }}
@@ -52,8 +51,8 @@ function CustomChart({
             dataKey="time"
             tick={{ fill: "#6B7280" }}
             className="text-[10px]"
-            interval={0} 
-            minTickGap={0}
+            // interval={0} 
+            // minTickGap={0}
           />
           <YAxis
             domain={[0, 10]}

@@ -2,108 +2,43 @@ import React from "react";
 import { CiSquarePlus } from "react-icons/ci";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Button } from "../Button";
-
-interface SidebarItem {
-  icon: React.ReactNode;
-  label: string;
-  active?: boolean;
-}
+import { useNavigate } from "react-router-dom";
+import { useNavbarData } from "../hooks/useNavbarData";
+import { IoMdClose } from "react-icons/io";
+import { closeSidebar } from "../../redux/features/sidebarSlice";
+import { useAppDispatch } from "../../redux/store/hook";
 
 const Sidebar: React.FC = () => {
-  const menuItems: SidebarItem[] = [
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-1.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Analytics",
-      active: true,
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-2.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Orders",
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-3.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Products",
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-4.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Categories",
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-5.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Brands",
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-6.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Refunds",
-    },
-  ];
+  const navigate = useNavigate();
+  const { menuItems, menuItems_2, currentPath } = useNavbarData();
+  const dispatch = useAppDispatch();
 
-  const menuItems_2: SidebarItem[] = [
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-7.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Support",
-      active: false,
-    },
-    {
-      icon: (
-        <img
-          src="images/sidebar-menu-icon-8.png"
-          alt="icon"
-          className="h-[14px] w-[14px]"
-        />
-      ),
-      label: "Configuration",
-    },
-  ];
+  // Function to handle navigate
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
+
+  // Check for the active path
+  const isActive = (path: string) => {
+    return currentPath === path;
+  };
 
   return (
     // <div className="w-56 bg-white border-r">
     <div className="w-56 bg-gray-50">
       <div className="py-4 mt-5">
+        {/* Close button - only visible on mobile */}
+        <button
+          onClick={() => dispatch(closeSidebar())}
+          className="md:hidden absolute right-2 top-4 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Close sidebar"
+        >
+          <IoMdClose size={22} className="custom-font-black" />
+        </button>
+        {/* Close button - ends  */}
+
         {/* Upper section - starts  */}
-        <div className="mb-6 pr-2 pl-8">
+        <div className="mb-6 pl-6">
           <div className="py-4 px-2 rounded-lg bg-white">
             <div className="text-xs flex justify-between items-center custom-border-2-bottom pb-[6px]">
               <span className="custom-font-black font-semibold">
@@ -117,7 +52,7 @@ const Sidebar: React.FC = () => {
             <div className="text-xs flex justify-between items-center mt-2">
               <div className="flex items-center">
                 <img
-                  src="images/jumia.png"
+                  src="/images/jumia.png"
                   alt="profile_picx"
                   className="h-[24px] w-[24px] button-hover"
                 />
@@ -151,10 +86,11 @@ const Sidebar: React.FC = () => {
               <div
                 key={index}
                 className={`flex items-center px-1 py-[8px] mb-1 rounded-lg cursor-pointer text-xs dashboard-sidebar-menu-item ${
-                  item.active
+                  isActive(item.path)
                     ? "dashboard-sidebar-bg-2 font-semibold"
                     : "custom-font-black"
                 }`}
+                onClick={() => handleNavigate(item.path)}
               >
                 {item.icon}
                 <span className="ml-2">{item.label}</span>
@@ -166,10 +102,11 @@ const Sidebar: React.FC = () => {
               <div
                 key={index}
                 className={`flex items-center px-1 py-[8px] mb-1 rounded-lg cursor-pointer text-xs dashboard-sidebar-menu-item ${
-                  item.active
+                  isActive(item.path)
                     ? "dashboard-sidebar-bg-2 font-semibold"
                     : "custom-font-black"
                 }`}
+                onClick={() => handleNavigate(item.path)}
               >
                 {item.icon}
                 <span className="ml-2">{item.label}</span>

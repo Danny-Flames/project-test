@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IAuth, ILoginPayload } from "../../constants/interfaces";
+import { getDecryptedAuthToken, getDecryptedUsers, saveEncryptedAuthToken, saveEncryptedUsers } from "../../helpers/localStorage";
 
 // Initial state for auth
 const initialState: IAuth = {
@@ -13,48 +14,81 @@ const initialState: IAuth = {
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData: IAuth["user"], { rejectWithValue }) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const userExists = users.some(
-      (user: IAuth["user"]) => user?.email === userData?.email
-    );
+    try {
+      // Get and decrypt existing users
+      const users = getDecryptedUsers();
 
-    if (userExists) {
-      return rejectWithValue("User with this email already exists");
+      // Check if user exists
+      const userExists = users.some(
+        (user) => user?.email === userData?.email
+      );
+
+      if (userExists) {
+        return rejectWithValue("User with this email already exists");
+      }
+
+      // Add new user and encrypt before saving
+      const updatedUsers = [...users, userData];
+      saveEncryptedUsers(updatedUsers);
+
+      return userData;
+    } catch (error) {
+      console.error("Registration error:", error);
+      return rejectWithValue(
+        "An error occurred during registration. Please try again."
+      );
     }
-
-    users.push(userData);
-    localStorage.setItem("users", JSON.stringify(users));
-    return userData;
   }
 );
 
 // Login user thunk
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (credentials: ILoginPayload, { rejectWithValue }) => {
+  async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const users = getDecryptedUsers();
+      
       const user = users.find(
-        (user: IAuth["user"]) =>
-          user?.email === credentials.email &&
-          user?.password === credentials.password
+        (u) => u?.email === credentials.email && u?.password === credentials.password
       );
 
       if (!user) {
         return rejectWithValue("Invalid email or password");
       }
 
-      localStorage.setItem("user", JSON.stringify(user));
+      // Save encrypted auth token
+      saveEncryptedAuthToken(user);
+
       return user;
     } catch (error) {
-      return rejectWithValue("An error occurred while logging in");
+      console.error("Login error:", error);
+      return rejectWithValue(
+        "An error occurred during login. Please try again."
+      );
+    }
+  }
+);
+
+// Check auth status thunk
+export const checkAuthStatus = createAsyncThunk(
+  "auth/checkStatus",
+  async (_, { rejectWithValue }) => {
+    try {
+      const user = getDecryptedAuthToken();
+      if (!user) {
+        return rejectWithValue("No authenticated user");
+      }
+      return user;
+    } catch (error) {
+      console.error("Auth check error:", error);
+      return rejectWithValue("Failed to verify authentication");
     }
   }
 );
 
 // Logout user action
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("authToken");
 });
 
 const authSlice = createSlice({

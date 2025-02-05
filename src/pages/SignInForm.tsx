@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { registerUser } from "../redux/features/authSlice";
-import { IAuth } from "../constants/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/store/hook";
+import { notifyError, notifySuccess } from "../alert/toastService";
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +17,7 @@ const SignInForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.auth);
+  const { loading } = useAppSelector((state) => state.auth);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,10 +27,13 @@ const SignInForm = () => {
     }));
   };
 
+  const isBtnActive = formData.name.trim() !== "";
+  formData.email.trim() !== "" && formData.phone.trim() !== "";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-     // I manually trigger the pending state because of the setTimeout() else there would have been no need to
+    // I manually trigger the pending state because of the setTimeout() else there would have been no need to
     // Because redux doesn’t even know a request has started until after 2 seconds because of the setTimeout.
     dispatch({ type: "auth/register/pending" });
 
@@ -39,14 +42,19 @@ const SignInForm = () => {
         const resultAction = await dispatch(registerUser(formData));
         if (registerUser.fulfilled.match(resultAction)) {
           // alert("Registration successful! Redirecting to login...");
+          notifySuccess("Registration successful! Redirecting to login...");
           navigate("/auth/login");
         } else if (registerUser.rejected.match(resultAction)) {
           console.error(resultAction.payload || "Registration failed");
+          notifyError(
+            (resultAction.payload as string) || "Registration failed"
+          );
         }
       } catch (error) {
         console.error("Registration error:", error);
+        notifyError("An error occurred. Please try again.");
       } finally {
-        console.log('Api call completed...')
+        console.log("Api call completed...");
       }
     }, 2000);
   };
@@ -65,12 +73,6 @@ const SignInForm = () => {
         <h2 className="text-xl font-semibold text-gray-900">
           Sign up a new account
         </h2>
-
-        {error && (
-          <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded">
-            {error}
-          </div>
-        )}
 
         <div className="my-4 flex items-center gap-2">
           <hr className="flex-grow border-gray-300" />
@@ -134,7 +136,12 @@ const SignInForm = () => {
             />
           </div>
 
-          <Button type="submit" fullWidth disabled={loading}>
+          <Button
+            type="submit"
+            fullWidth
+            isBtnActive={isBtnActive}
+            disabled={loading || !isBtnActive}
+          >
             {loading ? "Signing Up..." : "Sign Up"}
           </Button>
         </form>

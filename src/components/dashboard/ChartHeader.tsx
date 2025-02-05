@@ -1,5 +1,3 @@
-import React from "react";
-
 interface IChartHeader {
   title?: string;
   subTitle?: string;

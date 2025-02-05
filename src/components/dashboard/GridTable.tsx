@@ -9,6 +9,7 @@ interface IGridTableProps {
   columns?: string[]; // Now optional
   data: (string | React.ReactNode)[][]; // Dynamic row data
   showSubHeader?: boolean;
+  className?: string;
 }
 
 const GridTable: React.FC<IGridTableProps> = ({
@@ -19,6 +20,7 @@ const GridTable: React.FC<IGridTableProps> = ({
   columns,
   data,
   showSubHeader,
+  className,
 }) => {
   return (
     <div className="p-4 bg-white rounded-xl shadow-md">
@@ -31,9 +33,9 @@ const GridTable: React.FC<IGridTableProps> = ({
         showSubHeader={showSubHeader}
       />
 
-      {/* Table */}
-      <div className="mt-2">
-        <table className="w-full text-xs">
+      {/* Scrollable Table Container */}
+      <div className="mt-2 custom-grid-table-box">
+        <table className="w-full text-xs custom-grid-table">
           {/* Table Headings - Only render if columns exist */}
           {columns && columns.length > 0 && (
             <thead>
@@ -41,7 +43,7 @@ const GridTable: React.FC<IGridTableProps> = ({
                 {columns.map((col, index) => (
                   <td
                     key={index}
-                    className={`pb-2 ${
+                    className={`pb-2 ${className || ""} ${
                       index === 0 ? "text-left" : "text-center"
                     } ${index === columns.length - 1 ? "text-right" : ""}`}
                   >

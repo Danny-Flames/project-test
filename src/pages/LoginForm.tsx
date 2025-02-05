@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../components/Input";
-import { Button } from "../components/Button"; // Make sure to import your RootState type
+import { Button } from "../components/Button"; 
 import { loginUser } from "../redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store/hook";
+import { notifyError, notifySuccess } from "../alert/toastService";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +25,9 @@ const LoginForm = () => {
     }));
   };
 
+  const isBtnActive =
+    formData.email.trim() !== "" && formData.password.trim() !== "";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -37,14 +40,20 @@ const LoginForm = () => {
         const resultAction = await dispatch(loginUser(formData));
         if (loginUser.fulfilled.match(resultAction)) {
           // alert("Login successful! Redirecting...");
-          navigate("/dashboard"); 
+          notifySuccess("Login Successful...!");
+          navigate("/dashboard");
         } else if (loginUser.rejected.match(resultAction)) {
           console.error(resultAction.payload || "Login failed");
+          notifyError(
+            (resultAction.payload as string) ||
+              "Login Failed. Check your credentials."
+          );
         }
       } catch (error) {
         console.error("Login error:", error);
+        notifyError("An error occurred. Please try again.");
       } finally {
-        console.log('Api call completed...')
+        console.log("Api call completed...");
       }
     }, 2000);
   };
@@ -63,12 +72,6 @@ const LoginForm = () => {
         <h2 className="text-xl font-semibold text-gray-900">
           Sign into your account
         </h2>
-
-        {error && (
-          <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded">
-            {error}
-          </div>
-        )}
 
         <div className="my-4 flex items-center gap-2">
           <hr className="flex-grow border-gray-300" />
@@ -111,7 +114,12 @@ const LoginForm = () => {
             />
           </div>
 
-          <Button type="submit" fullWidth disabled={loading}>
+          <Button
+            type="submit"
+            fullWidth
+            isBtnActive={isBtnActive}
+            disabled={loading || !isBtnActive}
+          >
             {loading ? "Signing In..." : "Sign In"}
           </Button>
         </form>

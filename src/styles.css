@@ -5,7 +5,6 @@
 
 
 :root {
-  --primary-background: rgba(0, 0, 0, 0.2);
   --font-black: rgba(37, 45, 60, 1);
   --font-black-2: rgba(52, 64, 84, 1);
   --font-grey: rgba(119, 127, 140, 1);
@@ -23,7 +22,6 @@
 }
 
 body {
-  background-color: var(--primary-background);
   font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
   font-size: 16px;
@@ -104,9 +102,67 @@ input.custom-input-bg-grey-2::placeholder {
 
 .dashboard-sidebar-menu-item:hover {
   background-color: var(--dashboard-sideBar-bg-hover);
-  /* background-color: green; */
 }
 
 .primary-bg {
   background-color: var(--primary-background);
+}
+
+input.navbar-search-input {
+  width: 20rem;
+}
+
+.dashboard-report-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-report-filter-input {
+  width: 15rem;
+}
+
+@media (max-width: 1140px) {
+  .custom-grid-table-box {
+    overflow-x: auto;
+  }
+
+  table.custom-grid-table {
+    min-width: 200px;
+  }
+
+  input.navbar-search-input {
+    width: 120px;
+  } 
+}
+
+@media (max-width: 770px) {
+  .dashboard-subHeader {
+    flex-direction: column !important;
+    align-items: flex-start;
+  }
+
+  .dashboard-subHeader-partB {
+    margin-top: 5px;
+  }
+
+  .dashboard-report-filter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-report-filter span {
+    margin: 5px 0;
+    padding-left: 5px;
+  }
+}
+
+@media (max-width: 500px) {
+  input.dashboard-filter-input {
+    width: 130px !important;
+  } 
+
+  input.dashboard-report-filter-input {
+    width: 85vw !important;
+  }
 }
