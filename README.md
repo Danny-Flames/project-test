@@ -42,6 +42,7 @@ This runs the project on http://localhost:4000 by default.
 - Recharts (Charts/Graphs)
 - Tailwind CSS (Styling)
 - Crypto-js (Encryption/Decryption)
+- Axios (Data Fetching)
 
 ## 📌 Main Pages
 This project consists of four main pages:
@@ -55,6 +56,7 @@ This project consists of four main pages:
 - Register Page:
     - When a user fills in all fields and clicks the Register button, an API call is simulated using setTimeout to introduce a slight delay.
     - The user’s data is encrypted using Crypto-JS before being stored in localStorage as part of an encrypted users' array.
+    - If the user enters an invalid email in the email field, an error message is displayed and the registered button will still be disabled.
 
 - Login Page:
     - When a user enters their email and password, the encrypted data is retrieved from localStorage.

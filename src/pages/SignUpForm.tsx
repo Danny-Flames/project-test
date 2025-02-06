@@ -7,6 +7,11 @@ import { registerUser } from "../redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store/hook";
 import { notifyError, notifySuccess } from "../alert/toastService";
 
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,55 +20,57 @@ const SignUpForm = () => {
     password: "",
   });
 
+  const [emailError, setEmailError] = useState<string | null>(null);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.auth);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Validate email on change
+    if (name === "email") {
+      if (!isValidEmail(value)) {
+        setEmailError("Please enter a valid email address");
+      } else {
+        setEmailError(null);
+      }
+    }
   };
 
   const isBtnActive =
     formData.name.trim() !== "" &&
     formData.email.trim() !== "" &&
     formData.phone.trim() !== "" &&
-    formData.password.trim() !== "";
+    formData.password.trim() !== "" &&
+    emailError === null; // Ensure email is valid
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // I manually trigger the pending state because of the setTimeout() else there would have been no need to
-    // Because redux doesn’t even know a request has started until after 2 seconds because of the setTimeout.
     dispatch({ type: "auth/register/pending" });
 
     setTimeout(async () => {
       try {
         const resultAction = await dispatch(registerUser(formData));
         if (registerUser.fulfilled.match(resultAction)) {
-          // alert("Registration successful! Redirecting to login...");
           notifySuccess("Registration successful! Redirecting to login...");
           navigate("/auth/login");
         } else if (registerUser.rejected.match(resultAction)) {
-          console.error(resultAction.payload || "Registration failed");
           notifyError(
             (resultAction.payload as string) || "Registration failed"
           );
         }
       } catch (error) {
-        console.error("Registration error:", error);
         notifyError("An error occurred. Please try again.");
-      } finally {
-        console.log("Api call completed...");
       }
     }, 2000);
-  };
-
-  const handleNavigate = (path: string) => {
-    navigate(`/${path}`);
   };
 
   return (
@@ -76,12 +83,6 @@ const SignUpForm = () => {
         <h2 className="text-xl font-semibold text-gray-900">
           Sign up a new account
         </h2>
-
-        <div className="my-4 flex items-center gap-2">
-          <hr className="flex-grow border-gray-300" />
-          <span className="text-gray-500">Or</span>
-          <hr className="flex-grow border-gray-300" />
-        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
@@ -103,6 +104,7 @@ const SignUpForm = () => {
             onChange={handleChange}
             placeholder="Email"
             disabled={loading}
+            error={emailError || undefined} // Show error message
           />
 
           <Input
@@ -116,28 +118,16 @@ const SignUpForm = () => {
             disabled={loading}
           />
 
-          <div>
-            <div className="flex justify-between items-center mb-1">
-              <label
-                htmlFor="password"
-                className="block text-sm font-normal text-gray-700"
-              >
-                Password
-              </label>
-              <a href="#" className="text-sm text-red-600 hover:text-red-500">
-                Forgot Password
-              </a>
-            </div>
-            <Input
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              isPasswordInput
-              containerClassName="w-full"
-              disabled={loading}
-            />
-          </div>
+          <Input
+            label="Password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            isPasswordInput
+            containerClassName="w-full"
+            disabled={loading}
+          />
 
           <Button
             type="submit"
@@ -153,7 +143,7 @@ const SignUpForm = () => {
           Already have an account?{" "}
           <span
             className="text-red-600 hover:text-red-500 cursor-pointer"
-            onClick={() => handleNavigate("auth/login")}
+            onClick={() => navigate("/auth/login")}
           >
             Sign In
           </span>
