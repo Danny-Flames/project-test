@@ -41,6 +41,7 @@ This runs the project on http://localhost:4000 by default.
 - Redux Toolkit (State Management)
 - Recharts (Charts/Graphs)
 - Tailwind CSS (Styling)
+- Crypto-js (Encryption/Decryption)
 
 ## 📌 Main Pages
 This project consists of four main pages:
