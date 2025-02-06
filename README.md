@@ -42,6 +42,34 @@ This runs the project on http://localhost:4000 by default.
 - Recharts (Charts/Graphs)
 - Tailwind CSS (Styling)
 
+## 📌 Main Pages
+This project consists of four main pages:
+
+- Register: User registration with encrypted local storage.
+- Login: User authentication with encrypted credential validation.
+- Dashboard Analytics: Displays key metrics and charts.
+- Dashboard Reports: Provides detailed data insights.
+
+## 🔐 Authentication Flow (Register & Login)
+- Register Page:
+    - When a user fills in all fields and clicks the Register button, an API call is simulated using setTimeout to introduce a slight delay.
+    - The user’s data is encrypted using Crypto-JS before being stored in localStorage as part of an encrypted users' array.
+
+- Login Page:
+    - When a user enters their email and password, the encrypted data is retrieved from localStorage.
+    - The data is then decrypted, and the system finds a matching user by email.
+    - If a match is found, the credentials are validated to grant access.
+
+## 📊 Dashboard Analytics (Data Handling & Filtering)
+- Clicking the "Report" button navigates to the Dashboard Reports page.
+- No real-time API call is made on this page because the suggested public API (jsonplaceholder) does not provide relevant data for the charts.
+- Instead, a local file in the project serves as a mock database, containing structured datasets.
+- In the Redux thunk, data is retrieved from this file, but a 2000ms delay is introduced to simulate an API call before returning the response.
+- The Redux store holds this data, which is then accessed in the Dashboard Analytics page to feed the charts.
+- Two main filters are implemented:
+    - Text Search Filter – Filters the data based on the user’s search term.
+    - Date Filter – Filters chart data by selected date ranges.
+
 ## 📌 Features
 - ✅ Authentication & State Management with Redux Toolkit
 - ✅ Interactive Charts using Recharts
