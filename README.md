@@ -23,10 +23,11 @@ cd project-test
 npm install
 
 - 3️⃣ Set Up Environment Variables
-Create a .env file in the root directory and add your environment variables:
+Create a .env file in the root directory and all environment variables:
 
-VITE_API_BASE_URL=<your-api-url>
-VITE_ANOTHER_KEY=<your-key>
+    - VITE_API_URL=https://jsonplaceholder.typicode.com
+    - VITE_SECRETKEY=<in_the_submission_mail>
+    - VITE_ENCRYPTION_IV=<in_the_submission_mail>
 
 - 4️⃣ Start the Development Server
 
