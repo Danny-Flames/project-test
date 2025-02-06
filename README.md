@@ -62,7 +62,6 @@ This project consists of four main pages:
     - If a match is found, the credentials are validated to grant access.
 
 ## 📊 Dashboard Analytics (Data Handling & Filtering)
-- Clicking the "Report" button navigates to the Dashboard Reports page.
 - No real-time API call is made on this page because the suggested public API (jsonplaceholder) does not provide relevant data for the charts.
 - Instead, a local file in the project serves as a mock database, containing structured datasets.
 - In the Redux thunk, data is retrieved from this file, but a 2000ms delay is introduced to simulate an API call before returning the response.
@@ -70,6 +69,7 @@ This project consists of four main pages:
 - Two main filters are implemented:
     - Text Search Filter – Filters the data based on the user’s search term.
     - Date Filter – Filters chart data by selected date ranges.
+- Clicking the "Report" button navigates to the Dashboard Reports page.
 
 ## 📋 Dashboard Reports (Real-Time API Call)
 - On the Dashboard Reports page, a real-time API call is made to jsonplaceholder to retrieve a list of users.
