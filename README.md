@@ -71,6 +71,11 @@ This project consists of four main pages:
     - Text Search Filter – Filters the data based on the user’s search term.
     - Date Filter – Filters chart data by selected date ranges.
 
+## 📋 Dashboard Reports (Real-Time API Call)
+- On the Dashboard Reports page, a real-time API call is made to jsonplaceholder to retrieve a list of users.
+- The retrieved data is stored in the Redux store and then accessed on this page.
+- The data is then used to populate the table displayed on the Dashboard Reports page.
+
 ## 📌 Features
 - ✅ Authentication & State Management with Redux Toolkit
 - ✅ Interactive Charts using Recharts
