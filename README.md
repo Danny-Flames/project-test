@@ -1,5 +1,5 @@
 
-## GCL Dashboard
+## GCCL Dashboard
 🚀 Project Overview
 This is a React.js TypeScript project built with Vite. It features state management using Redux Toolkit, data visualization with Recharts, and styling with Tailwind CSS.
 
