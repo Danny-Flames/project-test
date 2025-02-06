@@ -13,6 +13,9 @@ This is a React.js TypeScript project built with Vite. It features state managem
 - 1️⃣ Clone the Repository
 
 git clone https://github.com/Danny-Flames/project-test.git
+
+- Navigate into the project
+
 cd project-test
 
 - 2️⃣ Install Dependencies
