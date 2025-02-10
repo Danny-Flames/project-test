@@ -179,6 +179,20 @@ input.navbar-search-input {
   .rdrDateRangePickerWrapper {
     flex-direction: column !important;
   }
+
+  .rdrDateRangePickerWrapper,
+  .rdrCalendarWrapper,
+  .rdrMonthAndYearWrapper,
+  .rdrWeekDays,
+  .rdrDays,
+  .rdrDayNumber span {
+    font-size: 10px !important;
+  }
+
+  .rdrDay {
+    min-width: 24px !important; 
+    min-height: 24px !important;
+  }
   
 }
 
