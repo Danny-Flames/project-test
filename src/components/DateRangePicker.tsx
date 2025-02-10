@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { DateRangePicker } from "react-date-range";
 
 interface DateRangeProps {
@@ -18,16 +18,33 @@ const CustomDateRangePicker: React.FC<DateRangeProps> = ({
     key: "selection",
   });
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 770);
+
+  const handleResize = useCallback(() => {
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+
   const handleSelect = (ranges: any) => {
     setDateRange(ranges.selection);
     if (onDateChange) {
-      onDateChange({ startDate: ranges.selection.startDate, endDate: ranges.selection.endDate });
+      onDateChange({
+        startDate: ranges.selection.startDate,
+        endDate: ranges.selection.endDate,
+      });
     }
   };
-  
 
   return (
-    <DateRangePicker ranges={[dateRange]} onChange={handleSelect} />
+    <DateRangePicker
+      ranges={[dateRange]}
+      onChange={handleSelect}
+      direction={isMobile ? "vertical" : "horizontal"}
+    />
   );
 };
 

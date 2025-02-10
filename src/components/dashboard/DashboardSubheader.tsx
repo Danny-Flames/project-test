@@ -81,8 +81,8 @@ const DashboardSubheader: React.FC<DashboardSubheaderProps> = ({
   }, []);
 
   return (
-    <div className="flex items-center justify-between mb-6 pb-3 custom-border-2-bottom dashboard-subHeader relative">
-      <div className="flex">
+    <div className="flex flex-col sm:flex-row items-center justify-between mb-6 pb-3 custom-border-2-bottom dashboard-subHeader relative">
+      <div className="flex mb-2 sm:mb-0">
         <button
           className="flex items-center px-[12px] py-[6px] rounded-xl bg-white mr-3 custom-border-2"
           onClick={handleNavigate}
@@ -107,42 +107,44 @@ const DashboardSubheader: React.FC<DashboardSubheaderProps> = ({
       {children ? (
         children
       ) : (
-        <div className="flex items-center dashboard-subHeader-partB relative">
-          <div className="relative group">
-            <button
-              className="flex items-center px-[12px] py-[6px] rounded-xl bg-white mr-3 custom-border-2"
-              onClick={handleToggleDatePicker}
-            >
-              <img
-                src="/images/icon-3.png"
-                alt="date-icon"
-                className="mr-2 h-[16px] w-[16px]"
-              />
-              <span className="text-xs font-medium">
-                {formattedDates.endDate}
+        <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto dashboard-subHeader-partB relative">
+          <div className="flex w-full sm:w-auto justify-between mb-2 sm:mb-0">
+            <div className="relative group w-[49%] sm:w-auto mr-3">
+              <button
+                className="flex items-center px-[12px] py-[6px] rounded-xl bg-white w-full custom-border-2"
+                onClick={handleToggleDatePicker}
+              >
+                <img
+                  src="/images/icon-3.png"
+                  alt="date-icon"
+                  className="mr-2 h-[16px] w-[16px]"
+                />
+                <span className="text-xs font-medium">
+                  {formattedDates.endDate}
+                </span>
+              </button>
+              <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-400 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                End Date
               </span>
-            </button>
-            <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-400 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-              End Date
-            </span>
-          </div>
+            </div>
 
-          <div className="relative group">
-            <button
-              className="flex items-center px-[12px] py-[6px] rounded-xl bg-white mr-3 custom-border-2"
-              onClick={handleToggleDatePicker}
-            >
-              <span className="text-xs font-medium">
-                Compare to: {formattedDates.startDate}
+            <div className="relative group w-[49%] sm:w-auto">
+              <button
+                className="flex items-center px-[12px] py-[6px] rounded-xl bg-white w-full custom-border-2"
+                onClick={handleToggleDatePicker}
+              >
+                <span className="text-xs font-medium">
+                  Compare to: {formattedDates.startDate}
+                </span>
+              </button>
+              <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-400 rounded opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity">
+                Start Date
               </span>
-            </button>
-            <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-400 rounded opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity">
-              Start Date
-            </span>
+            </div>
           </div>
 
           <button
-            className="flex items-center px-[12px] py-[6px] rounded-xl bg-white custom-border-2"
+            className="flex items-center px-[12px] py-[6px] rounded-xl bg-white w-full sm:w-auto mt-2 sm:mt-0 custom-border-2"
             onClick={() => clearFilters()}
           >
             <img
